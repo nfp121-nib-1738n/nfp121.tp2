@@ -1,5 +1,6 @@
 package question2;
 
+import java.util.*;
 
 /**
  * Classe-test FahrenheitCelsiusTest.
@@ -68,5 +69,27 @@ public class FahrenheitCelsiusTest extends junit.framework.TestCase
      * Par convention, leurs noms devraient débuter par "test".
      * Vous pouvez ébaucher le corps grâce au menu contextuel "Enregistrer une méthode de test".
      */
+    public void test_fahrenheitEnCelsius() {
+        String args[] = {"10","ZZ","100"};
+        
+        String input = "Input: {";
+        for(int i=0;i<args.length;i++){
+            if(i > 0) input += ", ";
+            input += "\"" + args[i] + "\"";
+        }
+        input += "}";
+        System.out.println("" + input + "\n");
+        
+        ArrayList<Integer> ExpectedResult = new ArrayList<Integer>();
+        ExpectedResult.add(10);
+        ExpectedResult.add(100);
+        
+        ArrayList<Integer> ActualResult = question2.FahrenheitCelsius.getFahrenheitValuesFromArgs(args);
+        
+        System.out.println("\nExpectedResult: " + ExpectedResult);
+        System.out.println("ActualResult: " + ActualResult);
+        
+	assertEquals(ExpectedResult, ActualResult);
+	}
 
 }

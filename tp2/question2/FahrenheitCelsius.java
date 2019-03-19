@@ -1,38 +1,61 @@
 package question2;
 
+import java.util.*;
 
 /**
  * Décrivez votre classe FahrenheitCelsius ici.
  * 
- * @author (votre nom) 
- * @version (un numéro de version ou une date)
+ * @author Hany Abboud
+ * @version 1.0
  */
 public class FahrenheitCelsius{
 
-     /** le point d'entrée de cette application, 
-      * dont le commentaire est à compléter
-      *
-      *  @param args ...
-      */
-     public static void main(String[] args){
-       try{
-       
-      
-       }catch(NumberFormatException nfe){
-           System.out.println("error : " + nfe.getMessage());  // en cas d'erreur 
-       }
-       
-     }
-     
-     /** 
-      * la méthode à compléter. 
-      *   @param f la valeur en degré Fahrenheit
-      *   @return  la conversion en degré Celsius
-      */
-     public static float fahrenheitEnCelsius( int f){
-       // ...
-       return 0.F;	// à compléter	en remplaçant la valeur retournée par la fonction de conversion
-       // ...
-     }
+     public static void main(String[] args) {
+        List FahrenheitValues = getFahrenheitValuesFromArgs(args);
+        List CelsiusValues = getCelsiusValuesFromFahrenheitValues(FahrenheitValues);
+        showOutput(FahrenheitValues, CelsiusValues);                                                                    
+    }
+
+    public static ArrayList<Integer> getFahrenheitValuesFromArgs(String[] args){
+        ArrayList<Integer> fahrenheitValues = new ArrayList<Integer>();
+        for(int i=0;i<args.length;i++){
+            try{
+                int fahrenheitStringToIntegerValue = Integer.parseInt(args[i]);
+                fahrenheitValues.add(fahrenheitStringToIntegerValue);
+            } catch(NumberFormatException nfe) {
+                System.out.println("error : " + nfe.getMessage());  // en cas d'erreur 
+            }
+        }
+        return fahrenheitValues;
+    }
+    
+    public static ArrayList<String> getCelsiusValuesFromFahrenheitValues(List FahrenheitValues){
+        ArrayList<String> res = new ArrayList<String>();
+        Iterator iter = FahrenheitValues.iterator();
+        
+        while(iter.hasNext()) {
+          float floatCelsiusVal = fahrenheitEnCelsius((int) iter.next());
+          floatCelsiusVal = (float) (((int) (floatCelsiusVal*10))/10.0);
+          String stringCelsiusVal = floatCelsiusVal + "";
+          res.add(stringCelsiusVal);
+        }
+        
+        return res;
+    }
+    
+    public static void showOutput(List FahrenheitValues, List CelsiusValues){
+        String Arrow = " -> ";
+        for(int i=0;i<FahrenheitValues.size();i++){
+            String Fahrenheit = FahrenheitValues.get(i) + "\u00B0F";
+            String Celsius = CelsiusValues.get(i) + "\u00B0C";
+            String Line = Fahrenheit + Arrow + Celsius;
+            System.out.println(Line);
+        }
+    }
+
+    public static float fahrenheitEnCelsius(int f) {
+        float CelsiusValue = (float) ((5 * (f - 32)) / 9.0);
+        return CelsiusValue;
+    }
 
 }
